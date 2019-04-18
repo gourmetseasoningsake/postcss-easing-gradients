@@ -2028,7 +2028,7 @@ postcss-double-position-gradients@^1.0.0:
 
 "postcss-easing-gradients@https://github.com/gourmetseasoningsake/postcss-easing-gradients.git":
   version "3.0.1"
-  resolved "https://github.com/gourmetseasoningsake/postcss-easing-gradients.git#5a081d66836feda54c91570fa45c582524a9122b"
+  resolved "https://github.com/gourmetseasoningsake/postcss-easing-gradients.git#fe5d9ff0b2a448873e1a133e2dcbbef5cc2d829d"
   dependencies:
     chroma-js "^1.3.7"
     easing-coordinates "^2.0.0"
