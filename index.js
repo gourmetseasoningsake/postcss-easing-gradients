@@ -3,14 +3,29 @@ const postcss = require('postcss')
 const valueParser = require('postcss-value-parser')
 const getColorStops = require('./lib/colorStops.js')
 const helpers = require('./lib/helpers.js')
+const path = require('path')
 
 /**
  * The easing gradient function is a postcss plugin which supports the in /.helpers mentioned gradient types.
  */
 module.exports = postcss.plugin('easing-gradient', (options = {}) => {
+  let dict = {}
+
+  if (typeof options.dict === 'string') {
+    dict = require(path.join(process.cwd(), options.dict))['custom-properties']
+           || dict
+
+  } else if ( typeof options.dict === 'object'
+            && options.dict !== null
+            && options.dict !== 'function'
+            ) {
+    dict = options.dict
+  }
+
   if (!options.stops) {
     options.stops = 13
   }
+
   return function(css) {
     css.walkRules(rule => {
       rule.walkDecls(decl => {
@@ -22,10 +37,17 @@ module.exports = postcss.plugin('easing-gradient', (options = {}) => {
             // Only modify gradient as the value can contain more e.g. 'linear-gradient(black, pink) center'.
             if (node.value === 'linear-gradient' || node.value === 'radial-gradient') {
               // Get a sensible array of gradient parameters where e.g. a function is split into multiple array items
+
               const gradientParams = valueParser
                 .stringify(helpers.divToSemiColon(node.nodes))
                 .split(';')
-                .map(str => str.trim())
+                .map(param => {
+                  const p = param.trim()
+                  if (p.startsWith('var(--')) {
+                    return dict[p.replace(/var\((.*?)\)/, (_, c) => c)] || p
+                  }
+                  return p
+                })
 
               gradientParams.forEach((param, i) => {
                 if (helpers.isTimingFunction(param)) {

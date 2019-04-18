@@ -1,0 +1,15 @@
+{
+  "name": "demo-gss",
+  "version": "0.1.0",
+  "description": "Dict option.",
+  "main": "index.js",
+  "repository": "https://github.com/gourmetseasoningsake/postcss-easing-gradients.git",
+  "author": "larsenwork",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-postcss": "^8.0.0",
+    "postcss-easing-gradients": "https://github.com/gourmetseasoningsake/postcss-easing-gradients.git",
+    "postcss-preset-env": "^6.6.0"
+  }
+}

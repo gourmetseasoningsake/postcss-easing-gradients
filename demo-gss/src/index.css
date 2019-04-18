@@ -1,0 +1,10 @@
+
+body {
+  margin: 0;
+}
+
+div {
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(to right, var(--color_1), ease, var(--color_2));
+}
